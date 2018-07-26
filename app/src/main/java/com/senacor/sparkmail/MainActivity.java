@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
+import dji.sdk.flightcontroller.FlightController;
+import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -166,17 +169,56 @@ public class MainActivity extends AppCompatActivity {
         handler.post(() -> Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_LONG).show());
     }
 
+    public static FlightController getFlightController() {
+        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+
+        if (aircraft != null) {
+            return aircraft.getFlightController();
+        }
+        return null;
+    }
+
+    public void showShortToast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
     private class TakeOffButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this, "Take off", Toast.LENGTH_SHORT).show();
+            showShortToast("Take off");
+
+            FlightController flightController = getFlightController();
+            if (flightController == null) {
+                showShortToast("Error while taking off :-(");
+            } else {
+                flightController.startTakeoff(djiError -> {
+                    if (djiError == null) {
+                        showShortToast("Success!");
+                    } else {
+                        showShortToast("Miserable failure :-( because: " + djiError.getDescription());
+                    }
+                });
+            }
         }
     }
 
     private class SetDownButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this, "Set down", Toast.LENGTH_SHORT).show();
+            showShortToast("Set down");
+
+            FlightController flightController = getFlightController();
+            if (flightController == null) {
+                showShortToast("Error while setting down :-(");
+            } else {
+                flightController.startLanding(djiError -> {
+                    if (djiError == null) {
+                        showShortToast("Success!");
+                    } else {
+                        showShortToast("Miserable failure :-( because: " + djiError.getDescription());
+                    }
+                });
+            }
         }
     }
 }
