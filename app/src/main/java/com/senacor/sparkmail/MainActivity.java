@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
 import dji.sdk.base.BaseComponent;
@@ -57,13 +59,15 @@ public class MainActivity extends AppCompatActivity {
     private List<String> missingPermissions = new ArrayList<>();
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
 
-    private Button takeOff;
-    private Button setDown;
+    @BindView(R.id.takeOff)
+    Button takeOff;
+    @BindView(R.id.setDown)
+    Button setDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // When the compile and target version is higher that 22, please request teh following permissions at runtime to ensure the SDK works properly.
+        // When the compile and target version is higher that 22, please request the following permissions at runtime to ensure the SDK works properly.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkAndRequestPermissions();
         }
@@ -71,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
         // Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
-        takeOff = findViewById(R.id.takeOff);
-        takeOff.setOnClickListener(new TakeOffButtonListener());
+        // Initialize view fields
+        ButterKnife.bind(this);
 
-        setDown = findViewById(R.id.setDown);
+        takeOff.setOnClickListener(new TakeOffButtonListener());
         setDown.setOnClickListener(new SetDownButtonListener());
     }
 

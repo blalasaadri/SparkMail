@@ -57,4 +57,6 @@ dependencies {
     }
     compile 'com.dji:dji-sdk:4.6'
     provided 'com.dji:dji-sdk-provided:4.6'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
