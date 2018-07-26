@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SparkMail</string>
+    <string name="take_off">Take off</string>
+    <string name="set_down">Set down</string>
 </resources>

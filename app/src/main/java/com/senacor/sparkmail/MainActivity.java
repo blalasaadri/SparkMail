@@ -13,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private List<String> missingPermissions = new ArrayList<>();
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
 
+    private Button takeOff;
+    private Button setDown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(com.senacor.sparkmail.R.layout.activity_main);
         // Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
+
+        takeOff = findViewById(R.id.takeOff);
+        takeOff.setOnClickListener(new TakeOffButtonListener());
+
+        setDown = findViewById(R.id.setDown);
+        setDown.setOnClickListener(new SetDownButtonListener());
     }
 
     private void checkAndRequestPermissions() {
@@ -153,5 +164,19 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(final String toastMessage) {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(() -> Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_LONG).show());
+    }
+
+    private class TakeOffButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this, "Take off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class SetDownButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this, "Set down", Toast.LENGTH_SHORT).show();
+        }
     }
 }
