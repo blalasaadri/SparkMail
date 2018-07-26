@@ -1,4 +1,4 @@
-package com.senacor.sparkmail.sparkmail;
+package com.senacor.sparkmail;
 
 import org.junit.Test;
 

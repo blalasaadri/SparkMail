@@ -1,4 +1,4 @@
-package com.senacor.sparkmail.sparkmail;
+package com.senacor.sparkmail;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.senacor.sparkmail.sparkmail", appContext.getPackageName());
+        assertEquals("com.senacor.sparkmail", appContext.getPackageName());
     }
 }

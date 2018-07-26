@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.senacor.sparkmail.sparkmail"
+        applicationId "com.senacor.sparkmail"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -38,20 +38,23 @@ android {
         doNotStrip "*/*/libFR.so"
         exclude 'META-INF/rxjava.properties'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation ('com.android.support.test:runner:1.0.2') {
+    androidTestImplementation('com.android.support.test:runner:1.0.2') {
         exclude module: 'support-annotations'
     }
-    androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.2') {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2') {
         exclude module: 'support-annotations'
     }
-    compile ('com.dji:dji-sdk:4.6')
-    provided ('com.dji:dji-sdk-provided:4.6')
-
+    compile 'com.dji:dji-sdk:4.6'
+    provided 'com.dji:dji-sdk-provided:4.6'
 }
